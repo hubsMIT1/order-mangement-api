@@ -1,0 +1,19 @@
+{
+  "name": "order-mangement-api",
+  "version": "1.0.0",
+  "description": "a backend API for an Order Management System. The API supports basic CRUD operations for employee records.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1",
+    "zod": "^3.22.4"
+  }
+}
