@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
 
 // connect to the MongoDB database
 const db_url = process.env.MONGO_URL;
-mongoose.connect(`${db_url}/order-management-system`);
+mongoose.connect(`${db_url}/order-management-system`, { writeConcern: { w: 'majority' } })
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
