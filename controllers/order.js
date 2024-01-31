@@ -1,6 +1,7 @@
 const Order = require("../models/order");
 const OrderItem = require("../models/orderItem");
 const Payment = require("../models/payment");
+const User = require("../models/user")
 const {
   orderSchema,
   updateOrderSchema,
@@ -20,7 +21,7 @@ exports.getOrder = async (req, res, next) => {
 
 exports.createOrder = async (req, res, next) => {
   try {
-    const validatedOrder = req.body;
+    const validatedOrder = orderSchema.parse(req.body);
 
     const orderItemsArray = [];
     for (let item of validatedOrder.orderItems) {
@@ -44,7 +45,7 @@ exports.createOrder = async (req, res, next) => {
       .populate("orderItems")
       .populate("payment")
       .populate("users");
-
+    console.log(populatedOrder)
     res
       .status(201)
       .json({ message: "Order created successfully", populatedOrder });
@@ -59,6 +60,7 @@ exports.createOrder = async (req, res, next) => {
   }
 };
 // user can update location, phone number,
+// anyone can update if logged in and have the orderId | also can change it into if first ordered person allow other users then only
 exports.updateOrder = async (req, res, next) => {
   try {
     const validatedOrder = updateOrderSchema.parse(req.body);
@@ -68,7 +70,6 @@ exports.updateOrder = async (req, res, next) => {
     // I'm just searching using the orderId to allow updatation by multiusers
     const order = await Order.findByIdAndUpdate(
       orderId,
-      { $addToSet: { users: validatedOrder.user } },
       { new: true }
     );
 
@@ -76,7 +77,7 @@ exports.updateOrder = async (req, res, next) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    for (let item of validatedOrder.orderItems) {
+    for (let item of validatedOrder.orderItems) { 
       const orderItem = await OrderItem.findById(item?._id);
 
       if (!orderItem) {
@@ -89,15 +90,33 @@ exports.updateOrder = async (req, res, next) => {
       });
       await orderItem.save();
     }
+    // if login no need to check
+    // console.log(validatedOrder.user)
+    const user  = await User.findById(validatedOrder.user);
+
+    if(!user){
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let checkUser = true;
+    for(let userId of order.users){
+      if(userId===validatedOrder.user)checkUser=false;
+    }
+    if(checkUser){
+      order.users.push(validatedOrder.user)
+    }
 
     // also can add like if chnanged then only
     order.set({
+      users:order.users,
       phone: validatedOrder?.phone ? validatedOrder?.phone : order?.phone,
       shippingAddress: validatedOrder?.shippingAddress
         ? validatedOrder?.shippingAddress
         : order?.shippingAddress,
+      
       // and so on....
     });
+    await order.save();
 
     const populatedOrder = await Order.findById(orderId)
       .populate("orderItems")
