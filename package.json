@@ -4,16 +4,26 @@
   "description": "a backend API for an Order Management System. The API supports basic CRUD operations for employee records.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll",
+    "dev": "nodemon index.js",
+    "prod": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chai": "^5.0.3",
+    "chai-http": "^4.4.0",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "mongoose": "^8.1.1",
+    "supertest": "^6.3.4",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.3"
   }
 }

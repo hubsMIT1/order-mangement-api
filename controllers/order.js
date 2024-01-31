@@ -153,7 +153,7 @@ exports.paymentOnOrder = async (req, res, next) => {
 
     res
       .status(200)
-      .json({ message: "Order updated successfully", populatedOrder });
+      .json({ message: "Order payment done successfully", populatedOrder });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res

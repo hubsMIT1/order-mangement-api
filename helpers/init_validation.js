@@ -15,7 +15,8 @@ const orderSchema = z.object({
     amount: z.number().positive(),
     method: z.enum(['Cash', 'Card', 'Online']),
     status: z.enum(['Pending', 'Completed', 'Failed']),
-  }).optional(),
+  }),
+  
   // userId can take from the logged in payload also
   users: z.array(z.string().refine((id) => isValidMongoDBId(id), { message: 'Invalid MongoDB _id format' })).nonempty(),
 });
