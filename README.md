@@ -1,6 +1,7 @@
 # order-mangement-api
 a backend API for an Order Management System. The API supports basic CRUD operations for employee records. 
 
+# Instruction
 - clone 
 ```
 cd order-management-api
@@ -87,5 +88,25 @@ POST : http://localhost:3000/order/65b8b4528334a2ebaaed92ef/payment
 
 */
 ```
+# Explanation & file Structure
 
+- **index.js**: The main file that creates and configures the Express app.
 
+### Models
+- **models/**: Directory containing Mongoose models.
+  - `order.js`: Model for orders.
+  - `orderItem.js`: Model for order items.
+  - `payment.js`: Model for payments.
+  - `user.js`: Model for users.
+
+### Controllers
+- **controllers/**: Directory for Express logic and controllers.
+  - `orderController.js`: Controller for order-related endpoints.
+
+### Helpers
+- **helpers/**: Directory for helper functions and modules.
+  - `initValidation.js`: Module defining and exporting Zod schemas.
+
+### Unit Tests
+- **unit/**: Directory for test files.
+  - `order.test.js`: Test file for the order controller using Jest and Supertest.
