@@ -101,11 +101,12 @@ POST : http://localhost:3000/order/65b8b4528334a2ebaaed92ef/payment
 
 ### Controllers
 - **controllers/**: Directory for Express logic and controllers.
-  - `orderController.js`: Controller for order-related endpoints.
+  - `mockData.js`: some dummy data.
+  - `order.js`: Controller for order-related endpoints.
 
 ### Helpers
 - **helpers/**: Directory for helper functions and modules.
-  - `initValidation.js`: Module defining and exporting Zod schemas.
+  - `init_validation.js`: Module defining and exporting Zod schemas.
 
 ### Unit Tests
 - **unit/**: Directory for test files.
