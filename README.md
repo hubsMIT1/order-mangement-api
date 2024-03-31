@@ -1,5 +1,9 @@
 # order-mangement-api
-a backend API for an Order Management System. The API supports basic CRUD operations for employee records. 
+A backend API for an Order Management System. The API supports basic CRUD operations for employee records. 
+
+- order create POST: https://order-api-hkte.onrender.com/order
+- order update PUT: https://order-api-hkte.onrender.com/order/:id
+- order payment POST: https://order-api-hkte.onrender.com/order/:id/payment
 
 # Instruction
 - clone 
